@@ -4,7 +4,7 @@
   "description": "Backend für Webtech website",
   "main": "index.js",
   "scripts": {
-    "devStart": "nodemon server.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
