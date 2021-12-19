@@ -1,0 +1,40 @@
+GET http://localhost:3000/reisen
+
+###
+
+GET http://localhost:3000/reisen/61bf02853ae4f229b74aa193
+
+###
+
+POST  http://localhost:3000/reisen
+Content-Type: application/json
+
+{
+    "name": "Reise1",
+    "date1": "2000-01-01",
+    "date2": "2001-01-01",
+    "country": "Germany"
+}
+
+###
+
+DELETE http://localhost:3000/reisen/61be191d0b47dc1b26653561
+
+###
+
+PATCH http://localhost:3000/reisen/61bf02853ae4f229b74aa193
+Content-Type: application/json
+
+{
+    "name": "Reise5",
+    "date1": "3637-01-01"
+}
+
+###
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "email": "huene@htw-berlin.de",
+    "password": "hunter2"
+}

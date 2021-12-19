@@ -1,0 +1,21 @@
+{
+  "name": "webtech-backend",
+  "version": "1.0.0",
+  "description": "Backend für Webtech website",
+  "main": "index.js",
+  "scripts": {
+    "devStart": "nodemon server.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "*",
+    "express": "*",
+    "mongoose": "^6.1.2"
+  },
+  "author": "Benedikt",
+  "license": "ISC",
+  "devDependencies": {
+    "dotenv": "^10.0.0",
+    "nodemon": "^2.0.15"
+  }
+}
