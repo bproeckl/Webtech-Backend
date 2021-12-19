@@ -1,12 +1,21 @@
-GET http://localhost:3000/reisen
+//get alle admin@htw
+GET http://localhost:3000/reisen/61bf62310f732aa4ed0a1641
 
 ###
-
-GET http://localhost:3000/reisen/61bf02853ae4f229b74aa193
+//get alle huene@hwt@htw
+GET http://localhost:3000/reisen/61bf62310f732aa4ed0a1643
 
 ###
+//get eine admin@htw
+GET http://localhost:3000/reisen/61bf62310f732aa4ed0a1641/61bf6392b0d72fed0dd7e1bf
 
-POST  http://localhost:3000/reisen
+###
+//get eine huene@hwt@htw
+GET http://localhost:3000/reisen/61bf62310f732aa4ed0a1643/61bf6405b0d72fed0dd7e1c3
+
+###
+//post eine admin@htw
+POST  http://localhost:3000/reisen/61bf62310f732aa4ed0a1641
 Content-Type: application/json
 
 {
@@ -17,17 +26,43 @@ Content-Type: application/json
 }
 
 ###
+//post eine huene@hwt@htw
+POST  http://localhost:3000/reisen/61bf62310f732aa4ed0a1643
+Content-Type: application/json
 
-DELETE http://localhost:3000/reisen/61be191d0b47dc1b26653561
+{
+    "name": "Reise2",
+    "date1": "2002-01-01",
+    "date2": "2003-01-01",
+    "country": "Austria"
+}
 
 ###
+//delete eine admin@htw
+DELETE http://localhost:3000/reisen/61bf62310f732aa4ed0a1641/61bf659eb0d72fed0dd7e1ca
 
-PATCH http://localhost:3000/reisen/61bf02853ae4f229b74aa193
+###
+//delete eine huene@hwt@htw
+DELETE http://localhost:3000/reisen/61bf62310f732aa4ed0a1643/61bf65bbb0d72fed0dd7e1cc
+
+###
+//patch eine admin@htw
+PATCH http://localhost:3000/reisen/61bf62310f732aa4ed0a1641/61bf659eb0d72fed0dd7e1ca
 Content-Type: application/json
 
 {
     "name": "Reise5",
     "date1": "3637-01-01"
+}
+
+###
+//patch eine huene@htw
+PATCH http://localhost:3000/reisen/61bf62310f732aa4ed0a1643/61bf65bbb0d72fed0dd7e1cc
+Content-Type: application/json
+
+{
+    "name": "Reise7",
+    "date2": "6235-01-01"
 }
 
 ###
@@ -38,3 +73,6 @@ Content-Type: application/json
     "email": "huene@htw-berlin.de",
     "password": "hunter2"
 }
+
+###
+GET http://localhost:3000/uid
