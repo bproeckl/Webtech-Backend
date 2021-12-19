@@ -23,7 +23,7 @@ async function deleteAll() {
 
 }
 
-deleteAll()
+//deleteAll()
 
 async function encrypt(pw, email) {
     try {
@@ -39,13 +39,28 @@ async function encrypt(pw, email) {
 
 }
 
-encrypt('hunter2','huene@htw-berlin.de')
-encrypt('abc123','admin@htw-berlin.de')
+//encrypt('hunter2','huene@htw-berlin.de')
+//encrypt('abc123','admin@htw-berlin.de')
+
+
 
 app.use(express.json())
 
 const reiseRouter = require('./routes/reisen')
 app.use('/reisen', reiseRouter)
+
+app.get('/uid', async (req, res) =>{
+    const user = await User.find()
+    if (user == null) {
+        return res.status(400).send('No Users')
+    }
+    uid =[]
+    for (let u in user) {
+        temp =user[u].email+": "+user[u]._id
+        uid.push(temp)
+    }
+    res.send(uid)
+})
 
 app.post('/login', async (req, res) => {
     const user = await User.find()
@@ -56,7 +71,7 @@ app.post('/login', async (req, res) => {
         if (req.body.email == user[u].email) {
             try {
                 if (await bcrypt.compare(req.body.password, user[u].password)) {
-                    return res.send('success')
+                    return res.send('success '+user[u]._id)
                 }
             } catch (error) {
                 return res.status(500).json({ message: error.message })

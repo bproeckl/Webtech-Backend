@@ -1,27 +1,34 @@
 const express = require('express')
 const router = express.Router()
 const Reise = require('../models/reisen')
+const User = require('../models/user')
 
 //Get alle Reisen
-router.get('/', async (req, res) => {
+router.get('/:uid', getUserReisen,  async (req, res) => {
     try {
-        const reisen = await Reise.find()
+        const reisen = res.userReisen
+        for (r in reisen){
+            if (reisen[r].uid){
+
+            }
+        }
         res.json(reisen)
     } catch (error) {
         res.status(500).json({message: error.message})
     }
 })
 //Get eine Reise
-router.get('/:id', getReise, (req, res) => {
+router.get('/:uid/:id', getReise, (req, res) => {
     res.json(res.reise)
 })
 //Create eine Reise
-router.post('/', async (req, res) => {
+router.post('/:uid', async (req, res) => {
     const reise =new Reise({
         name: req.body.name,
         date1: req.body.date1,
         date2: req.body.date2,
-        country: req.body.country
+        country: req.body.country,
+        uid: req.params.uid
     })
 
     try {
@@ -32,7 +39,7 @@ router.post('/', async (req, res) => {
     }
 })
 //Update eine Reise
-router.patch('/:id', getReise, async (req, res) => {
+router.patch('/:uid/:id', getReise, async (req, res) => {
     if (req.body.name != null){
         res.reise.name= req.body.name
     }
@@ -54,7 +61,7 @@ router.patch('/:id', getReise, async (req, res) => {
     }
 })
 //Delete eine Reise
-router.delete('/:id', getReise, async (req, res) => {
+router.delete('/:uid/:id', getReise, async (req, res) => {
     try {
         await res.reise.remove()
         res.json({message: 'Deleted Reise'})
@@ -63,12 +70,30 @@ router.delete('/:id', getReise, async (req, res) => {
     }
 })
 
+async function getUserReisen(req, res, next){
+    let getUserReisen
+    try {
+        getUserReisen= await Reise.find({"uid": req.params.uid})
+        if (getUserReisen == null){
+            return res.status(404).json({message: 'Cannot find reise for User'})
+        }
+    }catch (error){
+        return res.status(500).json({message: error.message})
+    }
+
+    res.userReisen = getUserReisen
+    next()
+}
+
 async function getReise(req, res, next){
     let reise
     try {
         reise = await Reise.findById(req.params.id)
         if (reise == null){
             return res.status(404).json({message: 'Cannot find reise'})
+        }
+        if (reise.uid!=req.params.uid){
+            return res.status(400).json({message: 'no Access to this Ressource'})
         }
     } catch (error) {
         return res.status(500).json({message: error.message})

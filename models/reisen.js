@@ -16,6 +16,10 @@ const reiseSchema= new mongoose.Schema({
     country:{
         type: String,
         required: true
+    },
+    uid:{
+        type: String,
+        required: true
     }
 })
 
