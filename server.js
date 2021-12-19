@@ -42,17 +42,6 @@ async function encrypt(pw, email) {
 encrypt('hunter2','huene@htw-berlin.de')
 encrypt('abc123','admin@htw-berlin.de')
 
-async function get() {
-    try {
-        const users = await User.find()
-        console.log(users)
-
-    } catch (error) {
-        console.log(error)
-    }
-}
-//get()
-
 app.use(express.json())
 
 const reiseRouter = require('./routes/reisen')
@@ -65,7 +54,6 @@ app.post('/login', async (req, res) => {
     }
     for (let u in user) {
         if (req.body.email == user[u].email) {
-            console.log(req.body.password, user[u].password)
             try {
                 if (await bcrypt.compare(req.body.password, user[u].password)) {
                     return res.send('success')
@@ -77,8 +65,5 @@ app.post('/login', async (req, res) => {
     }
     return res.status(400).send('Falsches Passwort oder Email')
 })
-
-//const loginRouter = require('./routes/login')
-//app.use('/login', loginRouter)
 
 app.listen(port, () => console.log('Server started on 127.0.0.1:' + port))
